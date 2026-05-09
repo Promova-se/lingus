@@ -1,0 +1,38 @@
+[build]
+  base = "app/frontend"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  VITE_API_URL = "http://localhost:5000/api"
+  VITE_SUPABASE_URL = "https://gnqeimbnvhqexmprkcmo.supabase.co"
+  VITE_SUPABASE_ANON_KEY = "sb_publishable_qUaZhLgwWi9q8eKlSQ2h8g_bMIRKbkt"
+
+# Headers para MIME types corretos
+[[headers]]
+  for = "/dist/assets/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/dist/assets/*.css"
+  [headers.values]
+    Content-Type = "text/css"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Headers de segurança
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Redirecionar todas as rotas para index.html (necessário para SPA/React Router)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
