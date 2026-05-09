@@ -58,7 +58,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center space-x-4">
               <span className="text-sm text-gray-600">{user.name}</span>
               <Link
-                to={user.role === 'teacher' ? '/teacher-dashboard' : '/school-dashboard'}
+                to={user.role === 'teacher' ? '/teacher/dashboard' : '/school/dashboard'}
                 className="px-4 py-2 text-teal-600 hover:text-teal-700 font-medium transition"
               >
                 Dashboard
@@ -144,7 +144,7 @@ export default function Navbar() {
                   {user.name}
                 </div>
                 <Link
-                  to={user.role === 'teacher' ? '/teacher-dashboard' : '/school-dashboard'}
+                  to={user.role === 'teacher' ? '/teacher/dashboard' : '/school/dashboard'}
                   onClick={() => setIsMenuOpen(false)}
                   className="block px-4 py-2 text-teal-600 hover:bg-gray-100 rounded font-medium transition"
                 >
