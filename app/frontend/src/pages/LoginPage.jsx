@@ -10,14 +10,14 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -29,24 +29,23 @@ export default function LoginPage() {
     try {
       const response = await axios.post(`${API_URL}/auth/login`, {
         email: formData.email,
-        password: formData.password
+        password: formData.password,
       });
 
-      // Guardar token e usuário
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
 
       alert('✅ Login realizado com sucesso!');
 
-      // Redirecionar para dashboard apropriado
       if (response.data.user.userType === 'school') {
         navigate('/school/dashboard');
       } else {
         navigate('/teacher/dashboard');
       }
-
     } catch (err) {
-      setError(err.response?.data?.error || 'Email ou senha inválidos');
+      setError(
+        err.response?.data?.error || 'Email ou senha inválidos'
+      );
       console.error('Erro:', err);
     } finally {
       setLoading(false);
@@ -106,8 +105,11 @@ export default function LoginPage() {
 
         <div className="text-center mt-6">
           <p className="text-gray-600">
-            Não tem conta? {' '}
-            <Link to="/register" className="text-teal-600 font-semibold hover:text-teal-700">
+            Não tem conta?{' '}
+            <Link
+              to="/register"
+              className="text-teal-600 font-semibold hover:text-teal-700"
+            >
               Cadastre-se
             </Link>
           </p>

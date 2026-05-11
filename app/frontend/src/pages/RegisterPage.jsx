@@ -13,14 +13,14 @@ export default function RegisterPage() {
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -28,7 +28,6 @@ export default function RegisterPage() {
     e.preventDefault();
     setError('');
 
-    // Validações
     if (formData.password !== formData.confirmPassword) {
       setError('As senhas não coincidem');
       return;
@@ -46,24 +45,23 @@ export default function RegisterPage() {
         name: formData.name,
         email: formData.email,
         password: formData.password,
-        userType: userType
+        userType: userType,
       });
 
-      // Guardar token e usuário
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
 
       alert('✅ Cadastro realizado com sucesso!');
 
-      // Redirecionar para dashboard
       if (userType === 'school') {
         navigate('/school/dashboard');
       } else {
         navigate('/teacher/dashboard');
       }
-
     } catch (err) {
-      setError(err.response?.data?.error || 'Erro ao cadastrar. Tente novamente.');
+      setError(
+        err.response?.data?.error || 'Erro ao cadastrar. Tente novamente.'
+      );
       console.error('Erro:', err);
     } finally {
       setLoading(false);
@@ -77,7 +75,9 @@ export default function RegisterPage() {
 
         {!userType ? (
           <div className="space-y-4">
-            <p className="text-gray-700 text-center mb-6">Você é uma escola ou professor?</p>
+            <p className="text-gray-700 text-center mb-6">
+              Você é uma escola ou professor?
+            </p>
             <button
               onClick={() => setUserType('school')}
               className="w-full py-3 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 transition"
@@ -109,7 +109,9 @@ export default function RegisterPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">
-                  {userType === 'school' ? 'Nome da Escola' : 'Nome Completo'}
+                  {userType === 'school'
+                    ? 'Nome da Escola'
+                    : 'Nome Completo'}
                 </label>
                 <input
                   type="text"
@@ -179,13 +181,12 @@ export default function RegisterPage() {
             <div className="text-center mt-6">
               <p className="text-gray-600">
                 Já tem conta?{' '}
-                <Link to="/login" className="text-teal-600 font-semibold hover:text-teal-700">
+                <Link
+                  to="/login"
+                  className="text-teal-600 font-semibold hover:text-teal-700"
+                >
                   Entre aqui
                 </Link>
               </p>
             </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
+   
